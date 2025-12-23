@@ -1,0 +1,11 @@
+spring:
+  devtools:
+    add-properties: false
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "health, info, metrics, features"

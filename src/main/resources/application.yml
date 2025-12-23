@@ -1,0 +1,52 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: spb4 try opentelemetry
+  output:
+    ansi:
+      enabled: always
+  threads:
+    virtual:
+      enabled: true
+
+logging:
+  level:
+    root: info
+    org.spring.springframework.web: info
+    com.application: info
+    org.hibernate: ERROR
+    web: info
+  pattern:
+    console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd HH:mm:ss.SSS Z}}){magenta} |  %clr(${LOG_LEVEL_PATTERN:%-5p}) | %clr(%-40.40logger{39}){cyan} | %clr(%-25.25M){yellow} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+server:
+  port: 8003
+
+info:
+  app:
+    name: spb4 try opentelemetry
+    description: "spring boot 4 application monotoring with opentelemetry"
+    version: 1.0.0
+
+  management:
+    tracing:
+      sampling:
+        probability: 1.0
+    otlp:
+      metrics:
+        export:
+          step: "10s"
+          url: http://localhost:4318/v1/metrics
+    observations:
+      annotations:
+        enabled: true
+    opentelemetry:
+      tracing:
+        export:
+          otlp:
+            transport: http
+            endpoint: http://localhost:4318/v1/traces
+      logging:
+        export:
+          otlp:
+            endpoint: http://localhost:4318/v1/logs
